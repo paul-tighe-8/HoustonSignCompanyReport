@@ -1,0 +1,130 @@
+/* design.css is the single place to add custom CSS:
+   - font @import url(...)
+   - extended palette CSS variables (e.g., --primary-glow)
+   - @layer base { ... } for global tweaks
+   - @layer components { ... } for @apply'd utility classes (.glass, .liquid-border)
+   - @keyframes and animation classes
+
+   This file is @import'ed by index.css so it shares the same Tailwind
+   PostCSS pass — do NOT add @tailwind base/components/utilities here.
+   They live in index.css only. */
+
+@layer components {
+  /* Color Variables for the Report */
+  :root {
+    --report-blue: #1d4ed8;
+    --report-blue-light: #dbeafe;
+    --report-blue-mid: #3b82f6;
+    --report-blue-dark: #1e3a5f;
+    --report-green: #16a34a;
+    --report-green-light: #d1fae5;
+    --report-amber: #d97706;
+    --report-amber-light: #fef3c7;
+    --report-red: #dc2626;
+    --report-red-light: #fee2e2;
+    --report-purple: #7c3aed;
+    --report-purple-light: #ede9fe;
+    --report-cyan: #0891b2;
+    --report-cyan-light: #cffafe;
+    --report-ai: #6d28d9;
+    --report-ai-light: #f5f3ff;
+    --report-ai-border: #c4b5fd;
+  }
+
+  /* Specific background and text utilities to avoid using raw hex in JSX */
+  .bg-report-blue-dark { background-color: var(--report-blue-dark); }
+  .text-report-blue-dark { color: var(--report-blue-dark); }
+  .bg-report-blue { background-color: var(--report-blue); }
+  .text-report-blue { color: var(--report-blue); }
+  .text-report-blue-mid { color: var(--report-blue-mid); }
+  .bg-report-green { background-color: var(--report-green); }
+  .text-report-green { color: var(--report-green); }
+  .bg-report-amber { background-color: var(--report-amber); }
+  .text-report-amber { color: var(--report-amber); }
+  .bg-report-purple { background-color: var(--report-purple); }
+  .text-report-purple { color: var(--report-purple); }
+  .bg-report-red { background-color: var(--report-red); }
+  .text-report-red { color: var(--report-red); }
+  .bg-report-cyan { background-color: var(--report-cyan); }
+  .text-report-cyan { color: var(--report-cyan); }
+  .bg-report-ai { background-color: var(--report-ai); }
+  .text-report-ai { color: var(--report-ai); }
+  
+  .bg-report-blue-light { background-color: var(--report-blue-light); }
+  .bg-report-green-light { background-color: var(--report-green-light); }
+  .bg-report-amber-light { background-color: var(--report-amber-light); }
+  .bg-report-purple-light { background-color: var(--report-purple-light); }
+  .bg-report-red-light { background-color: var(--report-red-light); }
+  .bg-report-cyan-light { background-color: var(--report-cyan-light); }
+  .bg-report-ai-light { background-color: var(--report-ai-light); }
+
+  /* Badges */
+  .report-badge {
+    @apply inline-block px-2 py-0.5 rounded text-[10px] font-bold whitespace-nowrap;
+  }
+  .badge-blue { @apply bg-report-blue-light text-report-blue; }
+  .badge-green { @apply bg-report-green-light text-report-green; }
+  .badge-amber { @apply bg-report-amber-light text-report-amber; }
+  .badge-red { @apply bg-report-red-light text-report-red; }
+  .badge-purple { @apply bg-report-purple-light text-report-purple; }
+  .badge-gray { @apply bg-muted text-muted-foreground; }
+  .badge-gold { background-color: #fef3c7; color: #92400e; }
+  .badge-ai { background-color: var(--report-ai-light); color: #4c1d95; }
+  .badge-cyan { background-color: var(--report-cyan-light); color: #0e7490; }
+
+  /* Callouts */
+  .callout {
+    @apply rounded-lg p-4 my-4 text-[13px] leading-relaxed;
+  }
+  .callout-blue { background-color: #eff6ff; border-left: 4px solid var(--report-blue); color: var(--report-blue-dark); }
+  .callout-green { background-color: #f0fdf4; border-left: 4px solid var(--report-green); color: #14532d; }
+  .callout-amber { background-color: #fffbeb; border-left: 4px solid var(--report-amber); color: #78350f; }
+  .callout-purple { background-color: #faf5ff; border-left: 4px solid var(--report-purple); color: #4c1d95; }
+  .callout-ai { background-color: var(--report-ai-light); border: 1px solid var(--report-ai-border); border-left: 4px solid var(--report-ai); color: #3b0764; }
+  .callout-ai strong { font-weight: 700; color: #4c1d95; }
+
+  /* Rank Badges */
+  .rank {
+    @apply inline-flex items-center justify-center w-7 h-7 rounded-md font-extrabold text-xs shrink-0;
+  }
+  .rank-1 { background-color: #fef3c7; color: #92400e; }
+  .rank-2 { background-color: #e0f2fe; color: #0369a1; }
+  .rank-3 { background-color: #d1fae5; color: #065f46; }
+  .rank-5 { background-color: #ede9fe; color: #5b21b6; }
+  .rank-10 { @apply bg-muted text-muted-foreground; }
+  .rank-bad { background-color: var(--report-red-light); color: #991b1b; }
+
+  /* Geo Heatmap Chips */
+  .heat-7 { background-color: #1d4ed8; color: #fff; }
+  .heat-6 { background-color: #3b82f6; color: #fff; }
+  .heat-5 { background-color: #60a5fa; color: #1e3a5f; }
+  .heat-4 { background-color: #93c5fd; color: #1e3a5f; }
+  .heat-3 { background-color: #bfdbfe; color: #1e40af; }
+  .heat-2 { background-color: #bfdbfe; color: #1e40af; }
+  .heat-1 { background-color: #dbeafe; color: #1e40af; }
+
+  /* Gradients */
+  .cover-bg {
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 40%, #312e81 70%, #4c1d95 100%);
+  }
+  
+  .ai-text-gradient {
+    background: linear-gradient(135deg, #818cf8, #c084fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .num-text-gradient {
+    background: linear-gradient(135deg, var(--report-ai), var(--report-blue-mid));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+@layer utilities {
+  .text-shadow-sm {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+}
